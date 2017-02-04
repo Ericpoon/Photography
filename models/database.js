@@ -270,19 +270,26 @@ function getPhotoDataById(pid, quality, onPhotoData) {
                     return;
                 }
                 if (file) {
+                    writeStreamToLocal.on('load', function (a, b) {
+                        console.log('DEBUG - writeStreamToLocal - ', a, b);
+
+                    });
+                    readStreamFromDatabase.on('load', function (a, b) {
+                        console.log('DEBUG - readStreamFromDatabase - ', a, b);
+                    });
                     console.log('DEBUG - FILE GOOD');
                     writeStreamToLocal = fs.createWriteStream(filePath);
                     console.log('DEBUG - 1 writeStreamToLocal: ' + writeStreamToLocal);
-                    writeStreamToLocal.on('close', function(err) {
-                        console.log('DEBUG - ERR when closing: ' + err)
+                    writeStreamToLocal.on('close', function (err) {
+                        console.log('DEBUG - ERR when closing: ' + err);
                         console.log('DEBUG - write stream to local is closing');
                         helper();
                     });
                     console.log('DEBUG - 2');
                     extension = file.contentType.replace('image/', '');
-                    console.log('DEBUG - 3');
+                    console.log('DEBUG - 3 readStream ' + readStreamFromDatabase);
                     readStreamFromDatabase.pipe(writeStreamToLocal);
-                    console.log('DEBUG - 4');
+                    console.log('DEBUG - 4 readStream ' + readStreamFromDatabase);
                 } else {
                     console.log('DEBUG - FILE IS NULL');
                     // TODO: handle error
