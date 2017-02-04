@@ -262,6 +262,7 @@ function getPhotoDataById(pid, quality, onPhotoData) {
             var filePath = TEMP_PHOTO_FOLDER_PATH + '/' + fileName;
             var writeStreamToLocal = fs.createWriteStream(filePath); // use a write stream to write the file in local storage from the database
             var extension = 'jpeg';
+
             writeStreamToLocal.on('close', function () {
                 helper();
             });
