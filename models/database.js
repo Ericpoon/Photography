@@ -272,12 +272,16 @@ function getPhotoDataById(pid, quality, onPhotoData) {
                 if (file) {
                     console.log('DEBUG - FILE GOOD');
                     writeStreamToLocal = fs.createWriteStream(filePath);
+                    console.log('DEBUG - 1');
                     writeStreamToLocal.on('close', function() {
                         console.log('DEBUG - write stream to local is closing');
                         helper();
                     });
+                    console.log('DEBUG - 2');
                     extension = file.contentType.replace('image/', '');
+                    console.log('DEBUG - 3');
                     readStreamFromDatabase.pipe(writeStreamToLocal);
+                    console.log('DEBUG - 4');
                 } else {
                     console.log('DEBUG - FILE IS NULL');
                     // TODO: handle error
