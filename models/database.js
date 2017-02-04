@@ -272,7 +272,7 @@ function getPhotoDataById(pid, quality, onPhotoData) {
                 if (file) {
                     console.log('DEBUG - FILE GOOD');
                     writeStreamToLocal = fs.createWriteStream(filePath);
-                    console.log('DEBUG - 1');
+                    console.log('DEBUG - 1 writeStreamToLocal: ' + writeStreamToLocal);
                     writeStreamToLocal.on('close', function(err) {
                         console.log('DEBUG - ERR when closing: ' + err)
                         console.log('DEBUG - write stream to local is closing');
