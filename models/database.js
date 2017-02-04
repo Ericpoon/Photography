@@ -262,51 +262,51 @@ function getPhotoDataById(pid, quality, onPhotoData) {
             var filePath = TEMP_PHOTO_FOLDER_PATH + '/' + fileName;
             var writeStreamToLocal = null; // use a write stream to write the file in local storage from the database
             var extension = 'jpeg';
-            console.log('DEBUG - start gfs.findOne - ' + filePath + ' - #' + id);
+            // console.log('DEBUG - start gfs.findOne - ' + filePath + ' - #' + id);
             gfs.findOne({_id: id}, function (err, file) {
                 if (err) {
-                    console.log('DEBUG - ERR: ' + err);
+                    // console.log('DEBUG - ERR: ' + err);
                     // TODO: handle error
                     return;
                 }
                 if (file) {
-                    console.log('DEBUG - FILE GOOD');
+                    // console.log('DEBUG - FILE GOOD');
                     writeStreamToLocal = fs.createWriteStream(filePath);
-                    console.log('DEBUG - 1 writeStreamToLocal: ' + writeStreamToLocal);
+                    // console.log('DEBUG - 1 writeStreamToLocal: ' + writeStreamToLocal);
                     writeStreamToLocal.on('close', function (err) {
-                        console.log('DEBUG - ERR when closing: ' + err);
-                        console.log('DEBUG - write stream to local is closing');
+                        // console.log('DEBUG - ERR when closing: ' + err);
+                        // console.log('DEBUG - write stream to local is closing');
                         helper();
                     });
-                    console.log('DEBUG - 2');
+                    // console.log('DEBUG - 2');
                     extension = file.contentType.replace('image/', '');
-                    console.log('DEBUG - 3 readStream ' + readStreamFromDatabase);
+                    // console.log('DEBUG - 3 readStream ' + readStreamFromDatabase);
                     readStreamFromDatabase.pipe(writeStreamToLocal);
-                    console.log('DEBUG - 4 readStream ' + readStreamFromDatabase);
-                    writeStreamToLocal.on('load', function (a, b) {
-                        console.log('DEBUG - writeStreamToLocal - ', a, b);
-                    });
-                    readStreamFromDatabase.on('load', function (a, b) {
-                        console.log('DEBUG - readStreamFromDatabase - ', a, b);
-                    });
+                    // console.log('DEBUG - 4 readStream ' + readStreamFromDatabase);
+                    // writeStreamToLocal.on('load', function (a, b) {
+                        // console.log('DEBUG - writeStreamToLocal - ', a, b);
+                    // });
+                    // readStreamFromDatabase.on('load', function (a, b) {
+                    //     console.log('DEBUG - readStreamFromDatabase - ', a, b);
+                    // });
                 } else {
-                    console.log('DEBUG - FILE IS NULL');
+                    // console.log('DEBUG - FILE IS NULL');
                     // TODO: handle error
                     return;
                 }
             });
             function helper() {
-                console.log('DEBUG - helper starts');
+                // console.log('DEBUG - helper starts');
                 fs.readFile(filePath, function (err, data) {
                     if (err) {
-                        console.log('DEBUG - fs.readFile err ' + err);
+                        // console.log('DEBUG - fs.readFile err ' + err);
                         return;
                     }
                     var b64str = new Buffer(data).toString('base64');
                     b64str = 'data:image/' + extension + ';base64,' + b64str;
                     fs.unlink(filePath);
                     onPhotoData(null, b64str);
-                    console.log('DEBUG - done');
+                    // console.log('DEBUG - done');
                 });
             }
         } else {
