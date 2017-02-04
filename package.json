@@ -23,11 +23,9 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "gm": "^1.23.0",
     "gridfs-stream": "^1.1.1",
-    "lwip": "0.0.9",
     "mongoose": "^4.7.4",
-    "promise": "^7.1.1",
+    "sharp": "^0.17.1",
     "when": "^3.7.7"
   },
   "devDependencies": {
