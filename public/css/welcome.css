@@ -1,0 +1,79 @@
+.welcome-area {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+    background: url("/public/images/welcome-bkgd.jpg") center no-repeat;
+    background-size: cover;
+}
+
+.welcome-area #overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.welcome-area .wrapper {
+    width: 570px;
+    height: 250px;
+    /*background-color: rgba(168, 79, 57, 0.35);*/
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+    transform: translateY(-150px);
+}
+
+.welcome-area .wrapper h1 {
+    color: white;
+    font-size: 80px;
+    font-weight: 100;
+    font-family: Baskerville;
+    transform: translateY(10px);
+}
+
+.welcome-area .wrapper h2 {
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: Baskerville;
+    line-height: 30px;
+    transform: translateY(-40px);
+}
+
+.welcome-area #enter-button {
+    border-radius: 0;
+    width: 570px;
+    height: 60px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: translateY(550px);
+
+}
+
+.welcome-area #enter-button:hover {
+    background-color: rgba(168, 79, 57, 0.5);
+}
+
+.welcome-area #enter-button p {
+    color: white;
+    font-family: Baskerville;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    border: 2px solid rgba(168, 79, 57, 0.35);
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: rgba(168, 79, 57, 0.35);
+    /*transform: translateY(-55px);*/
+}

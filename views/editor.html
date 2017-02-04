@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor</title>
+    <script src="/public/javascript/angular.min.js"></script>
+    <script src="/public/javascript/editor-app.js"></script>
+</head>
+<body ng-app="editorApp" ng-controller="editorController">
+
+<form>
+    Image: <input type="file" my-ng-choose-file="chooseFile(file)"><br>
+    Title: <input type="text" ng-model="title"><br>
+    Description: <input type="text" ng-model="description" ng-keyup="$event.keyCode===13 && addPhoto()"><br>
+    <input type="button" value="Submit" ng-click="addPhoto()">
+    <p>{{message}}</p>
+</form>
+
+<hr>
+
+<input type="button" value="Get All" ng-click="getAll()">
+<div ng-repeat="n in photos | orderBy: 'index'" class="photo_block">
+    <img src='{{n.photoData}}' width="20%" class="photo">
+    {{n.title}} | {{n.description}}
+    <input type="button" value="Delete" ng-click="deletePhoto(n._id)">
+</div>
+
+</body>
+</html>
