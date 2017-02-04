@@ -257,33 +257,44 @@ function getPhotoDataById(pid, quality, onPhotoData) {
 
     function getDataHelper(id) {
         if (id) {
-            // !!! // TODO: get the data and call onPhotoData with the data
             var readStreamFromDatabase = gfs.createReadStream({'_id': id});
             var fileName = Math.random();
             var filePath = TEMP_PHOTO_FOLDER_PATH + '/' + fileName;
             var writeStreamToLocal = null; // use a write stream to write the file in local storage from the database
             var extension = 'jpeg';
+            console.log('DEBUG - start gfs.findOne - ' + filePath + ' - #' + id);
             gfs.findOne({_id: id}, function (err, file) {
                 if (err) {
+                    console.log('DEBUG - ERR: ' + err);
                     // TODO: handle error
                     return;
                 }
                 if (file) {
+                    console.log('DEBUG - FILE GOOD');
                     writeStreamToLocal = fs.createWriteStream(filePath);
-                    writeStreamToLocal.on('close', helper);
+                    writeStreamToLocal.on('close', function() {
+                        console.log('DEBUG - write stream to local is closing');
+                        helper();
+                    });
                     extension = file.contentType.replace('image/', '');
                     readStreamFromDatabase.pipe(writeStreamToLocal);
                 } else {
+                    console.log('DEBUG - FILE IS NULL');
                     // TODO: handle error
                     return;
                 }
             });
             function helper() {
                 fs.readFile(filePath, function (err, data) {
+                    if (err) {
+                        console.log('DEBUG - fs.readFile err ' + err);
+                        return;
+                    }
                     var b64str = new Buffer(data).toString('base64');
                     b64str = 'data:image/' + extension + ';base64,' + b64str;
                     fs.unlink(filePath);
                     onPhotoData(null, b64str);
+                    console.log('DEBUG - done');
                 });
             }
         } else {
