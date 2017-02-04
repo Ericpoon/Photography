@@ -1763,11 +1763,11 @@ function reorderPhotoTest() {
 }
 
 basicTest();
-// advancedTest();
-// movePhotoTest();
-// swapPhotoTest();
-// insertPhotoTest();
-// reorderPhotoTest();
+advancedTest();
+movePhotoTest();
+swapPhotoTest();
+insertPhotoTest();
+reorderPhotoTest();
 
 function _addNewPhotos(gname, number, done) {
     helper(gname, number, 0, [], done);

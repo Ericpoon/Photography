@@ -236,13 +236,13 @@ function getPhotoDataById(pid, quality, onPhotoData) {
         if (photo) {
             switch (quality) {
                 case PHOTO_QUALITY.THUMBNAIL:
-                    getDataById(photo.thumbnail);
+                    getDataHelper(photo.thumbnail);
                     break;
                 case PHOTO_QUALITY.LARGE:
-                    getDataById(photo.large);
+                    getDataHelper(photo.large);
                     break;
                 case PHOTO_QUALITY.ORIGINAL:
-                    getDataById(photo.original);
+                    getDataHelper(photo.original);
                     break;
                 default:
                     console.error('database.js - invalid quality input');
@@ -250,17 +250,18 @@ function getPhotoDataById(pid, quality, onPhotoData) {
                     break;
             }
         } else {
+            console.error('database.js - error at getPhotoDataById()\n\tid:' + pid + '\n\terr:' + err);
             onPhotoData(err, null);
         }
     }
 
-    function getDataById(id) {
+    function getDataHelper(id) {
         if (id) {
             // !!! // TODO: get the data and call onPhotoData with the data
             var readStreamFromDatabase = gfs.createReadStream({'_id': id});
             var fileName = Math.random();
             var filePath = TEMP_PHOTO_FOLDER_PATH + '/' + fileName;
-            var writeStreamToLocal = fs.createWriteStream(filePath); // use a write stream to write the file in local storage from the database
+            var writeStreamToLocal = null; // use a write stream to write the file in local storage from the database
             var extension = 'jpeg';
             gfs.findOne({_id: id}, function (err, file) {
                 if (err) {
@@ -268,12 +269,15 @@ function getPhotoDataById(pid, quality, onPhotoData) {
                     return;
                 }
                 if (file) {
+                    writeStreamToLocal = fs.createWriteStream(filePath);
+                    writeStreamToLocal.on('close', helper);
                     extension = file.contentType.replace('image/', '');
                     readStreamFromDatabase.pipe(writeStreamToLocal);
+                } else {
+                    // TODO: handle error
+                    return;
                 }
             });
-
-            writeStreamToLocal.on('close', helper);
             function helper() {
                 fs.readFile(filePath, function (err, data) {
                     var b64str = new Buffer(data).toString('base64');
