@@ -442,7 +442,7 @@ function advancedTest() {
 
         it('should add two photos without error', function (done) {
             // title 0 1
-            _addNewPhotos(_gname, 2, done);
+            _addNewPhotosSync(_gname, 2, done);
         });
         it('first photo should be head', function (done) {
             database.getFirstPhotoId(_gname, function (err, id) {
@@ -572,7 +572,7 @@ function advancedTest() {
         });
         it('should add one photo without error', function (done) {
             // first photo in gallery is of title 1, second photo in gallery is of title 0
-            _addNewPhotos(_gname, 1, done);
+            _addNewPhotosSync(_gname, 1, done);
         });
         it('should remove second one without error', function (done) {
             database.getLastPhotoId(_gname, function (err, id) {
@@ -637,7 +637,7 @@ function advancedTest() {
 
         // stress test on linked list: add and remove
         it('should add tons of photos without error', function (done) {
-            _addNewPhotos(_gname, _photoNumber, function (err, sequence) {
+            _addNewPhotosSync(_gname, _photoNumber, function (err, sequence) {
                 if (err) done(err);
                 else {
                     _photoSequence = sequence;
@@ -848,7 +848,7 @@ function movePhotoTest() {
             });
         });
         it('should add new photos to gallery 1 without error', function (done) {
-            _addNewPhotos(_gname1, _photoNumber, function (err, sequence) {
+            _addNewPhotosSync(_gname1, _photoNumber, function (err, sequence) {
                 if (err) done(err);
                 else {
                     _sequence1 = sequence;
@@ -909,7 +909,7 @@ function movePhotoTest() {
         });
 
         it('should add new photos to gallery 2 without error', function (done) {
-            _addNewPhotos(_gname2, _photoNumber, function (err, sequence) {
+            _addNewPhotosSync(_gname2, _photoNumber, function (err, sequence) {
                 if (err) done(err);
                 else {
                     for (var i = 0; i < sequence.length; i++) {
@@ -1048,7 +1048,7 @@ function swapPhotoTest() {
         var _lastId = null;
         it('should add two photos without error', function (done) {
             // title 0 1
-            _addNewPhotos(_gname, 2, done);
+            _addNewPhotosSync(_gname, 2, done);
         });
         it('should swap two photos without error (the only two photos in the gallery)', function (done) {
             database.getFirstPhotoId(_gname, function (err, firstId) {
@@ -1187,7 +1187,7 @@ function swapPhotoTest() {
             });
         });
         it('should add multiple photos without error', function (done) {
-            _addNewPhotos(_gname, _photoNumber, function (err, sequence) {
+            _addNewPhotosSync(_gname, _photoNumber, function (err, sequence) {
                 if (err) done(err);
                 else {
                     _sequence = sequence;
@@ -1400,7 +1400,7 @@ function insertPhotoTest() {
             });
         });
         it('should add 3 photos without error', function (done) {
-            _addNewPhotos(_gname, 3, function (err, sequence) {
+            _addNewPhotosSync(_gname, 3, function (err, sequence) {
                 if (err) done(err);
                 else {
                     _sequence = sequence;
@@ -1505,7 +1505,7 @@ function insertPhotoTest() {
         it('gallery should maintain correct linked', function (done) {
             _checkLinkedList(_gname, _sequence, done);
         });
-        
+
         it('should insert after the last photo without error', function (done) {
             var photoDoc = {title: '', photoData: _testPhotoData, gallery: _gname};
             database.getLastPhotoId(_gname, function (err, lastId) {
@@ -1514,7 +1514,7 @@ function insertPhotoTest() {
                     else {
                         var newElem = {_id: newDoc._id, removed: false};
                         _sequence.push(newElem);
-                        console.log('add:',newElem);
+                        console.log('add:', newElem);
                         done();
                     }
                 });
@@ -1581,7 +1581,7 @@ function reorderPhotoTest() {
         // -- multiple photos
         it('should add ' + 10 + ' photos without error', function (done) {
             _photoNumber = 10;
-            _addNewPhotos(_gname, _photoNumber, function (err, sequence) {
+            _addNewPhotosSync(_gname, _photoNumber, function (err, sequence) {
                 if (err) done(err);
                 else {
                     _sequence = sequence;
@@ -1633,7 +1633,7 @@ function reorderPhotoTest() {
         // -- two photos
         it('should add ' + 2 + ' photos without error', function (done) {
             _photoNumber = 2;
-            _addNewPhotos(_gname, _photoNumber, function (err, sequence) {
+            _addNewPhotosSync(_gname, _photoNumber, function (err, sequence) {
                 if (err) done(err);
                 else {
                     _sequence = sequence;
@@ -1679,7 +1679,7 @@ function reorderPhotoTest() {
         // -- one photo
         it('should add ' + 1 + ' photos without error', function (done) {
             _photoNumber = 1;
-            _addNewPhotos(_gname, _photoNumber, function (err, sequence) {
+            _addNewPhotosSync(_gname, _photoNumber, function (err, sequence) {
                 if (err) done(err);
                 else {
                     _sequence = sequence;
@@ -1762,14 +1762,127 @@ function reorderPhotoTest() {
     })
 }
 
+// test getAllPhotosSorted(), getAllPhotosWithDataSorted(), getAllPhotoIdsSorted()
+function getAllSortedTest() {
+    describe('database tests, getting all photos in a sorted order\n', function () {
+        var _gname = Math.random();
+        var _sequence = [];
+        var _photoNumber = 10;
+        it('should create two galleries without error', function (done) {
+            database.createGallery({'name': _gname}, function (err) {
+                if (err) done(err);
+                else done();
+            });
+        });
+        it('should add new photos to gallery without error', function (done) {
+            _addNewPhotosSync(_gname, _photoNumber, function (err, sequence) {
+                if (err) done(err);
+                else {
+                    _sequence = sequence;
+                    done();
+                }
+            });
+        });
+
+        it('should run getAllPhotosSorted() without error', function (done) {
+            database.getAllPhotosSorted(_gname, function (err, docs) {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                if (docs.length != _sequence.length) {
+                    done('Number of documents does not match.');
+                    return;
+                }
+                for (var i = 0; i < docs.length; i++) {
+                    // unknown why we must use ._doc here (in frontend we do not need to do so)
+                    if (docs[i]._doc.index == i && docs[i]._id.equals(_sequence[i]._id)) {
+                        // good
+                    } else {
+                        done('Order is not correct.');
+                        return;
+                    }
+                }
+                done();
+            });
+        });
+
+        it('should run getAllPhotosWithDataSorted() without error', function (done) {
+            database.getAllPhotoWithDataSorted(_gname, database.PHOTO_QUALITY.THUMBNAIL, function (err, docs) {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                if (docs.length != _sequence.length) {
+                    done('Number of documents does not match.');
+                    return;
+                }
+                for (var i = 0; i < docs.length; i++) {
+                    // unknown why we must use ._doc here (in frontend we do not need to do so)
+                    if (docs[i]._doc.index == i && docs[i]._id.equals(_sequence[i]._id)) {
+                        // good
+                    } else {
+                        done('Order is not correct.');
+                        return;
+                    }
+                }
+                done();
+            });
+        });
+
+        it('should run getAllPhotoIdsSorted() without error', function (done) {
+            database.getAllPhotoIdsSorted(_gname, function (err, docs) {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                if (docs.length != _sequence.length) {
+                    done('Number of documents does not match.');
+                    return;
+                }
+                for (var i = 0; i < docs.length; i++) {
+                    // for ids we create a new array copied from the original document, so we need not to use ._doc here
+                    if (docs[i].index == i && docs[i]._id.equals(_sequence[i]._id)) {
+                        // good
+                    } else {
+                        done('Order is not correct.');
+                        return;
+                    }
+                }
+                done();
+            });
+        });
+
+        // test ends
+        it('should empty the gallery without error', function (done) {
+            database.emptyGallery(_gname, function (err) {
+                if (err) done(err);
+                else done();
+            });
+        });
+
+        it('should remove the gallery without error', function (done) {
+            database.removeGalleryByName(_gname, function (err) {
+                if (err) done(err);
+                else {
+                    done();
+                    _gname = null;
+                }
+            })
+        });
+    });
+}
+
+
 basicTest();
 advancedTest();
 movePhotoTest();
 swapPhotoTest();
 insertPhotoTest();
 reorderPhotoTest();
+getAllSortedTest();
 
-function _addNewPhotos(gname, number, done) {
+function _addNewPhotosSync(gname, number, done) {
     helper(gname, number, 0, [], done);
     function helper(gname, total, counter, sequence, done) {
         if (counter < total) {

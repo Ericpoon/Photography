@@ -159,6 +159,7 @@ function getAllPhotosSorted(gname, onAllPhotosSorted) {
             for (var i = 0; i < docs.length; i++) {
                 docs[i]._doc.index = i;
             }
+            // console.log(docs);
             onAllPhotosSorted(null, docs);
         })
     });
@@ -311,7 +312,7 @@ function getAllPhotosWithData(gname, quality, onAllPhotoWithData) {
         function helper(docs, index, onCompletion) {
             if (index < docs.length) {
                 getPhotoDataById(docs[index]._id, quality, function (err, data) {
-                    docs[index].otherProps.photoData = data;
+                    docs[index]._doc.photoData = data;
                     helper(docs, index + 1, onCompletion);
                 });
             } else {
@@ -343,6 +344,31 @@ function getAllPhotosWithDataSorted(gname, quality, onAllPhotoWithDataSorted) {
             }
         }
     });
+}
+function getAllPhotoIdsSorted(gname, onAllIds) {
+    getAllPhotosSorted(gname, function (err, docs) {
+        if (err) {
+            onAllIds(err);
+            return;
+        }
+
+        helper(docs, 0, onAllIds);
+        function helper(docs, index, onCompletion) {
+            if (index < docs.length) {
+                var id = docs[index]._id;
+                var idx = docs[index]._doc.index; // in backend, we must use ._doc, unknown why (no need in frontend)
+                docs[index] = {
+                    _id: id,
+                    index: idx
+                };
+                helper(docs, index + 1, onCompletion);
+            } else {
+                onCompletion(null, docs);
+            }
+        }
+    });
+
+
 }
 function getPhotoWithDataById(pid, quality, onPhotoWithData) {
     if (!_isValidQualityInput(quality)) {
@@ -1379,6 +1405,7 @@ module.exports = {
     getPrevPhotoId: getPrevPhotoId,
     getPhotoDataById: getPhotoDataById,
     getPhotoWithDataById: getPhotoWithDataById,
+    getAllPhotoIdsSorted: getAllPhotoIdsSorted,
     // creator
     createGallery: createGallery,
     addNewPhoto: addNewPhoto,
