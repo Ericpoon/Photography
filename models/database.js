@@ -287,7 +287,7 @@ function getPhotoDataById(pid, quality, onPhotoData) {
                     }
                     var b64str = new Buffer(data).toString('base64');
                     b64str = 'data:image/' + extension + ';base64,' + b64str;
-                    fs.unlink(filePath);
+                    fs.unlink(filePath,function(err){});
                     onPhotoData(null, b64str);
                 });
             }
@@ -546,14 +546,14 @@ function addNewPhoto(photoDoc, onNewPhoto) {
         });
         when.all(promises).then(function () {
             saveNewPhotoDocToDatabase();
-            fs.unlink(originalPhotoPath);
-            fs.unlink(largePhotoPath);
-            fs.unlink(thumbnailPhotoPath);
+            fs.unlink(originalPhotoPath, function(err){});
+            fs.unlink(largePhotoPath, function(err){});
+            fs.unlink(thumbnailPhotoPath, function(err){});
         });
-        function makeAndStoreCompressedPhoto(compressionRatio, originalPath, newPath, writeStreamToDatabase, onError) {
-            console.log('database.js - Writing compressed (' + compressionRatio + ') photo to database');
+        function makeAndStoreCompressedPhoto(quality, originalPath, newPath, writeStreamToDatabase, onError) {
+            console.log('database.js - Writing compressed (' + quality + ') photo to database');
             var thumbnailPromise = new Promise(function (resolve, reject) {
-                imageCompressor.compress(originalPath, newPath, function (err, result) {
+                imageCompressor.compress(originalPath, newPath, quality, function (err, result) {
                     if (err) {
                         reject();
                     } else {

@@ -24,7 +24,7 @@ router.get('/editor', function (request, response) {
 router.post('/db/addnew', function (request, response) {
     function sendBack(err, newPhotoDoc) {
         if (err) {
-            response.send(err);
+            response.status(500).send({'error': err});
         } else {
             response.send('OK - Photo added.');
         }
@@ -43,7 +43,7 @@ router.post('/db/addnew', function (request, response) {
 router.get('/db/getalltn', function (request, response) {
     function sendBack(err, thumbnails) {
         if (err) {
-            response.send(err);
+            response.status(500).send({'error': err});
         } else {
             response.send(thumbnails);
         }
@@ -52,16 +52,40 @@ router.get('/db/getalltn', function (request, response) {
     database.getAllPhotoWithDataSorted(DEMO_GALLERY_NAME, database.PHOTO_QUALITY.THUMBNAIL, sendBack);
 });
 
+router.get('/db/getallid', function (request, response) {
+    function sendBack(err, ids) {
+        if (err) {
+            response.status(500).send({'error': err});
+        } else {
+            response.send(ids);
+        }
+    }
+
+    database.getAllPhotoIdsSorted(DEMO_GALLERY_NAME, sendBack);
+});
+
 router.get('/db/getlarge/:id', function (request, response) {
     function sendBack(err, photo) {
         if (err) {
-            response.send(err);
+            response.status(500).send({'error': err});
         } else {
             response.send(photo);
         }
     }
 
-    database.getPhotoWithDataById(request.params.id, database.PHOTO_QUALITY.ORIGINAL, sendBack);
+    database.getPhotoWithDataById(request.params.id, database.PHOTO_QUALITY.LARGE, sendBack);
+});
+
+router.get('/db/getthumb/:id', function (request, response) {
+    function sendBack(err, photo) {
+        if (err) {
+            response.status(500).send({'error': err});
+        } else {
+            response.send(photo);
+        }
+    }
+
+    database.getPhotoWithDataById(request.params.id, database.PHOTO_QUALITY.THUMBNAIL, sendBack);
 });
 
 router.put('/db/update/:id', function (request, response) {
@@ -71,7 +95,7 @@ router.put('/db/update/:id', function (request, response) {
 router.delete('/db/delete/:id', function (request, response) {
     function sendBack(err) {
         if (err) {
-            response.send(err);
+            response.status(500).send({'error': err});
         } else {
             response.send('OK - Photo removed.');
         }
@@ -83,7 +107,7 @@ router.delete('/db/delete/:id', function (request, response) {
 
 // 404 Not Found
 router.get('*', function (request, response) {
-    response.send('404 Not Found');
+    response.status(404).send({'error': '404 Not Found'});
 });
 
 module.exports = router;

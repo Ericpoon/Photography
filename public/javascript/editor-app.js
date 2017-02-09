@@ -9,7 +9,7 @@ app.controller('editorController', function ($scope, $http) {
         reader.onload = function (event) {
             $scope.message = 'Submitting...';
             var newData = {"photoData": reader.result, "title": $scope.title, "description": $scope.description, "gallery": 'default'};
-            console.log(newData);
+
             // post the data to the server
             $http.post("/db/addnew", newData).then(function okay(response) {
                 $scope.message = response.data;
