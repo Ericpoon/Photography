@@ -235,6 +235,11 @@ function getPrevPhotoId(pid, onPrevPhotoId) {
 function getPhotoDataById(pid, quality, onPhotoData) {
     function onPhoto(err, photo) {
         if (photo) {
+            if (!fs.existsSync(TEMP_PHOTO_FOLDER_PATH)) {
+                console.log('database.js - Rebuilding directory for temporary photo files');
+                fs.mkdirSync(TEMP_PHOTO_FOLDER_PATH);
+            }
+
             switch (quality) {
                 case PHOTO_QUALITY.THUMBNAIL:
                     getDataHelper(photo.thumbnail);
