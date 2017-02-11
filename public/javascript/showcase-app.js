@@ -1,17 +1,21 @@
 const app = angular.module('showcaseApp', []);
 
+var PAGE = {
+    WELCOME: '_welcome_',
+    GALLERY: '_gallery_',
+    ABOUT: '_about_',
+    LARGE: '_large'
+};
+
 app.controller('showcaseController', function ($scope, $http) {
-    $scope.isGalleryLoading = true;
-    $scope.isShowWelcome = true;
+    $scope.isGalleryLoaded = false;
     $scope.isBigImageLoading = false;
-    $scope.isShowGallery = false;
-    $scope.isShowAbout = false;
 
     function getAllPhotos() {
         $http.get('/db/getallid').then(
             function okay(response) {
                 $scope.photos = response.data;
-                $scope.isGalleryLoading = false;
+                $scope.isGalleryLoaded = true;
                 for (var i = 0; i < $scope.photos.length; i++) {
                     $scope.photos[i].photoData = '/public/images/loading.gif';
                     helper(i);
@@ -29,10 +33,33 @@ app.controller('showcaseController', function ($scope, $http) {
 
             },
             function error(response) {
-                $scope.isGalleryLoading = false;
+                $scope.isGalleryLoaded = true;
                 console.log(response.error);
             }
         );
+    }
+
+    function showPage(name) {
+        $scope.isShowGallery = false;
+        $scope.isShowLargePhoto = false;
+        $scope.isShowWelcome = false;
+        $scope.isShowAbout = false;
+        switch (name) {
+            case PAGE.WELCOME:
+                $scope.isShowWelcome = true;
+                break;
+            case PAGE.GALLERY:
+                $scope.isShowGallery = true;
+                break;
+            case PAGE.ABOUT:
+                $scope.isShowAbout = true;
+                break;
+            case PAGE.LARGE:
+                $scope.isShowLargePhoto = true;
+            default:
+                console.log('showcase-app.js - ERROR - NO PAGE TO SHOW');
+                break;
+        }
     }
 
     $scope.showInfo = function (id) {
@@ -48,11 +75,8 @@ app.controller('showcaseController', function ($scope, $http) {
     };
 
     $scope.showBigImage = function (id) {
+        showPage(PAGE.LARGE);
         $scope.bigPhoto = null; // TODO: maybe can show thumbnail first and load image, just like Weibo
-        $scope.isShowWelcome = false;
-        $scope.isShowGallery = false;
-        $scope.isShowAbout = false;
-        $scope.isShowLargePhoto = true;
         $scope.isBigImageLoading = true;
         $http.get('/db/getlarge/' + id).then(function okay(response) {
             var blob = dataURItoBlob(response.data.photoData);
@@ -67,57 +91,19 @@ app.controller('showcaseController', function ($scope, $http) {
     };
 
     $scope.showGallery = function () {
-        console.log("show gallery");
-        if (!$scope.photos) {
+        if (!$scope.isGalleryLoaded) {
             getAllPhotos();
         }
-        $scope.isShowGallery = true;
-        $scope.isShowLargePhoto = false;
-        $scope.isShowWelcome = false;
-        $scope.isShowAbout = false;
-        var elem = angular.element(document.getElementById('photography-option'));
-        elem.addClass('selected');
-        elem.removeClass('not-selected');
-        elem = angular.element(document.getElementById('home-option'));
-        elem.removeClass('selected');
-        elem.addClass('not-selected');
-        elem = angular.element(document.getElementById('about-option'));
-        elem.removeClass('selected');
-        elem.addClass('not-selected');
+        showPage(PAGE.GALLERY);
     };
 
     $scope.showWelcome = function () {
-        console.log("show welcome");
-        $scope.isShowWelcome = true;
-        $scope.isShowGallery = false;
-        $scope.isShowLargePhoto = false;
-        $scope.isShowAbout = false;
-        var elem = angular.element(document.getElementById('home-option'));
-        elem.addClass('selected');
-        elem.removeClass('not-selected');
-        elem = angular.element(document.getElementById('photography-option'));
-        elem.removeClass('selected');
-        elem.addClass('not-selected');
-        elem = angular.element(document.getElementById('about-option'));
-        elem.removeClass('selected');
-        elem.addClass('not-selected');
+        $scope.isGalleryLoaded = false;
+        showPage(PAGE.WELCOME);
     };
 
     $scope.showAbout = function () {
-        console.log("show about");
-        $scope.isShowAbout = true;
-        $scope.isShowWelcome = false;
-        $scope.isShowGallery = false;
-        $scope.isShowLargePhoto = false;
-        var elem = angular.element(document.getElementById('about-option'));
-        elem.addClass('selected');
-        elem.removeClass('not-selected');
-        elem = angular.element(document.getElementById('photography-option'));
-        elem.removeClass('selected');
-        elem.addClass('not-selected');
-        elem = angular.element(document.getElementById('home-option'));
-        elem.removeClass('selected');
-        elem.addClass('not-selected');
+        showPage(PAGE.ABOUT);
     };
 
     $scope.showPrev = function () {
@@ -136,19 +122,7 @@ app.controller('showcaseController', function ($scope, $http) {
         }
     };
 
-    $scope.keyPressedOnBigPhotoContainer = function ($event) {
-        console.log("Key Pressed");
-        var keyCode = $event.keyCode;
-        if (keyCode === 13 || 27) {
-            $scope.showGallery();
-        }
-    };
-
-
-
-    // $scope.showGallery();
-
-
+    $scope.showGallery();
 
 });
 

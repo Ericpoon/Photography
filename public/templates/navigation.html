@@ -1,26 +1,25 @@
 <div class="navigation-area">
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-fixed-top">
         <div class="container">
 
             <div class="navbar-header">
                 <a class="navbar-brand" href="">Eric Photography</a>
             </div>
 
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a id='home-option' ng-class="{'selected': isShowWelcome}" ng-click="showWelcome()" href="">Home</a>
+                </li>
+                <li>
+                    <a id='photography-option' ng-class="{'selected': isShowGallery}" ng-click="showGallery()" href="">Photography</a>
+                </li>
+                <li>
+                    <a id='about-option' ng-class="{'selected': isShowAbout}" ng-click="showAbout()" href="">About</a>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
-                <a href="editor">
-                    <button class="btn navbar-btn btn-info" style="margin-left: 30px">
-                        Editor
-                    </button>
-                </a>
-
                 <li>
-                    <a id='home-option' class="not-selected" ng-click="showWelcome()" href="">Home</a>
-                </li>
-                <li>
-                    <a id='photography-option' class="not-selected" ng-click="showGallery()" href="">Photography</a>
-                </li>
-                <li>
-                    <a id='about-option' class="not-selected" ng-click="showAbout()" href="">About</a>
+                    <a href="editor">Editor</a>
                 </li>
             </ul>
 

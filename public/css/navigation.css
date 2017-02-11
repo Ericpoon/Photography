@@ -1,18 +1,36 @@
 /* Navigation Bar */
 
 .navigation-area {
-    padding-bottom: 70px;
+    padding-bottom: 40px;
 }
 
 .navigation-area .navbar {
     border-bottom: 1px solid #b3b3b3;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
-.navigation-area a.selected {
-    color: #c40c0c;
+.navigation-area .navbar-brand {
+    margin-right: 30px;
+    font-size: 16px;
 }
 
-.navigation-area a.not-selected {
-    color: #999999;
+.navigation-area .navbar-brand:hover {
+    color: rgba(168, 79, 57, 1);
+}
+
+.navigation-area a {
+    color: rgb(108, 108, 108);
+}
+.navigation-area ul.nav li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.navigation-area ul.nav li a:hover {
+    color: rgba(168, 79, 57, 1);
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.navigation-area ul a.selected {
+    color: rgba(168, 79, 57, 1);
 }
