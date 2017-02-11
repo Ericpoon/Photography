@@ -1,0 +1,8 @@
+<div class="large-photo-area">
+    <div class="bigPhoto-outer whiteBkgd">
+        <img class='bigPhoto selectDisable' src="{{bigPhoto.photoData}}" ng-hide="isBigImageLoading">
+        <p class="backButton button" ng-click="showGallery()">x</p>
+        <p class="leftButton button" ng-click="showPrev()" ng-hide="isFirstPhoto"><</p>
+        <p class="rightButton button" ng-click="showNext()" ng-hide="isLastPhoto">></p>
+    </div>
+</div>

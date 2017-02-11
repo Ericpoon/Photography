@@ -146,7 +146,7 @@ app.controller('showcaseController', function ($scope, $http) {
 
 
 
-    $scope.showGallery();
+    // $scope.showGallery();
 
 
 
@@ -177,6 +177,20 @@ app.directive('footer', function () {
     return {
         restrict: 'E',
         templateUrl: '/public/templates/footer.html'
+    }
+});
+
+app.directive('gallery', function () {
+    return {
+        restrict: 'E',
+        templateUrl: '/public/templates/gallery.html'
+    }
+});
+
+app.directive('largeDisplay', function () {
+    return {
+        restrict: 'E',
+        templateUrl: '/public/templates/large-display.html'
     }
 });
 

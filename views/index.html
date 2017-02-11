@@ -32,38 +32,13 @@
 
 <navigation ng-show="isShowGallery || isShowAbout"></navigation>
 
-
-<div class="gallery-area" ng-show="isShowGallery">
-    <div ng-repeat="n in photos | orderBy: 'index'" class="photo-outer">
-        <div class="photo-inner" ng-mouseover="showInfo(n._id)" ng-mouseleave="hideInfo(n._id)"
-             ng-click="showBigImage(n._id)">
-            <!-- TODO: Should use actual file instead of base 64 to improve performance, should do cache -->
-            <img src='{{n.photoData}}' class="photo">
-            <div class="overlay"></div>
-            <!--<div class="info hideInfo selectDisable" ng-class="n._id">-->
-            <!--<div class="infoLabel">-->
-            <!--<p class="title">{{n.title}}</p>-->
-            <!--<p class="description">{{n.description}}</p>-->
-            <!--</div>-->
-            <!--</div>-->
-        </div>
-    </div>
-</div>
+<gallery ng-show="isShowGallery"></gallery>
 
 <about ng-show="isShowAbout"></about>
 
+<large-display ng-show="isShowLargePhoto"></large-display>
 
 <footer ng-show="(isShowGallery || isShowAbout) && !isGalleryLoading"></footer>
-
-
-<div class="large-photo-area" ng-show="isShowLargePhoto">
-    <div class="bigPhoto-outer whiteBkgd">
-        <img class='bigPhoto selectDisable' src="{{bigPhoto.photoData}}" ng-hide="isBigImageLoading">
-        <p class="backButton button" ng-click="showGallery()">x</p>
-        <p class="leftButton button" ng-click="showPrev()" ng-hide="isFirstPhoto"><</p>
-        <p class="rightButton button" ng-click="showNext()" ng-hide="isLastPhoto">></p>
-    </div>
-</div>
 
 </body>
 </html>
