@@ -6,6 +6,7 @@ app.controller('showcaseController', function ($scope, $http) {
     $scope.isBigImageLoading = false;
     $scope.isShowGallery = false;
     $scope.isShowAbout = false;
+
     function getAllPhotos() {
         $http.get('/db/getallid').then(
             function okay(response) {
@@ -143,31 +144,40 @@ app.controller('showcaseController', function ($scope, $http) {
         }
     };
 
+
+
+    $scope.showGallery();
+
+
+
 });
 
 app.directive('welcome', function () {
-    function link() {
-
-    }
-
     return {
         restrict: 'E',
-        link: link,
         templateUrl: '/public/templates/welcome.html'
     }
 });
 
 app.directive('about', function () {
-    function link() {
-
-    }
-
     return {
         restrict: 'E',
-        link: link,
         templateUrl: '/public/templates/about.html'
     }
+});
 
+app.directive('navigation', function () {
+    return {
+        restrict: 'E',
+        templateUrl: '/public/templates/navigation.html'
+    }
+});
+
+app.directive('footer', function () {
+    return {
+        restrict: 'E',
+        templateUrl: '/public/templates/footer.html'
+    }
 });
 
 // frontend supported methods

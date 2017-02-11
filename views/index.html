@@ -30,14 +30,8 @@
 
 <welcome ng-show="isShowWelcome"></welcome>
 
-<div class="navigation-area" ng-show="isShowGallery || isShowAbout">
-    <ul class="navigationBar">
-        <li><a id='about-option' class="not-selected" ng-click="showAbout()">About</a></li>
-        <li><a id='photography-option' class="not-selected" ng-click="showGallery()">Photography</a></li>
-        <li><a id='home-option' class="not-selected" ng-click="showWelcome()">Home</a></li>
-        <li><p id="logo-label">Eric Photography</p></li>
-    </ul>
-</div>
+<navigation ng-show="isShowGallery || isShowAbout"></navigation>
+
 
 <div class="gallery-area" ng-show="isShowGallery">
     <div ng-repeat="n in photos | orderBy: 'index'" class="photo-outer">
@@ -58,12 +52,8 @@
 
 <about ng-show="isShowAbout"></about>
 
-<div class="footer-area" ng-show="(isShowGallery || isShowAbout) && !isGalleryLoading">
-    <div class="footerInfoContainer">
-        <p class="copyright">© Eric Poon 2017.</p>
-        <p class="note">Powered by MongoDB, Express, AngularJS and NodeJS</p>
-    </div>
-</div>
+
+<footer ng-show="(isShowGallery || isShowAbout) && !isGalleryLoading"></footer>
 
 
 <div class="large-photo-area" ng-show="isShowLargePhoto">

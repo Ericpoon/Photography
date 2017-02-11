@@ -1,29 +1,27 @@
 /* Footer */
 .footer-area {
-    clear: left;
-    padding-top: 40px;
-    /*width: calc(var(--content-width) - var(--photo-padding) * 2);*/
-    /*width: var(--content-width);*/
-    width: 100%;
-    margin: auto;
+}
+
+.footer-area .footer {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .footer-area p.copyright {
     float: left;
     color: #999999;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     font-size: 14px;
-    margin-left: 200px;
+    margin-left: 100px;
 }
 
 .footer-area p.note {
     text-align: right;
     color: #999999;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     font-size: 14px;
-    margin-right: 200px;
+    margin-right: 100px;
 }
 
 .footer-area .footerInfoContainer {
