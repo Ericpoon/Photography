@@ -5,22 +5,26 @@
     /*width: var(--content-width);*/
     width: 100%;
     margin: auto;
+    bottom: 0;
+    position: relative;
 }
 
 .footer-area .container-fluid {
     bottom: 0;
-    position: absolute;
+    position: relative;
     width: 100%;
     border-top: 1px solid #b3b3b3;
+    background-color: rgba(255, 255, 255, 0.9);
 }
-
 
 .footer-area .container-fluid p {
     color: #999999;
     font-size: 14px;
     padding: 30px 0;
     position: relative;
-    top: 0;bottom: 0;margin: auto;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }
 
 .footer-area .container-fluid p.left {

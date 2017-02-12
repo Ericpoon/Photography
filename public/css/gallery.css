@@ -11,6 +11,7 @@
     text-align: center;
     padding: 0 calc((100% - var(--content-width)) / 2);
     box-sizing: border-box;
+    min-height: calc(100% - 162px);
 }
 
 .gallery-area img.photo {

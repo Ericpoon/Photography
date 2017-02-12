@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0 auto;
     width: 100%;
+    min-height: calc(100% - 162px);
 }
 
 .about-area .container-fluid {
@@ -9,7 +10,7 @@
     margin: 0;
     width: 100%;
     position: absolute;
-    top: 40%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
