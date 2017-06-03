@@ -4,7 +4,7 @@ const path = require('path');
 const __viewdir = path.resolve(__dirname + '/../views');
 const __modeldir = path.resolve(__dirname + '/../models');
 
-const database = require(__modeldir + '/database.js');
+const database = require(__modeldir + '/gallery-manager.js');
 
 const DEFAULT_GALLERY_NAME = 'default';
 const DEMO_GALLERY_NAME = 'demo'; // for frontend development
