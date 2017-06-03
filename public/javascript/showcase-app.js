@@ -122,7 +122,7 @@ app.controller('showcaseController', function ($scope, $http) {
         }
     };
 
-    $scope.showGallery();
+    $scope.showWelcome();
 
 });
 
