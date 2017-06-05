@@ -35,3 +35,23 @@
     text-align: right;
     margin-right: 50px;
 }
+
+@media screen and (max-width: 880px) {
+    .footer-area .container-fluid p.right {
+        font-size: 10px;
+        line-height: 20px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .footer-area .container-fluid p.right {
+        font-size: 8px;
+        line-height: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .footer-area .container-fluid p.right {
+        visibility: hidden;
+    }
+}
