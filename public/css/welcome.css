@@ -26,8 +26,8 @@
 }
 
 .welcome-area .button-row {
-    width: 400px;
-    margin: 120px auto 0 auto;
+    width: 250px;
+    margin: 160px auto 0 auto;
 }
 
 .welcome-area h1 {
@@ -55,7 +55,11 @@
 }
 
 .welcome-area #enter-button:hover {
-    background-color: rgba(168, 79, 57, 0.6);
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.welcome-area #enter-button p:hover {
+    /*border: 2px solid rgba(168, 79, 57, 0.5);*/
 }
 
 .welcome-area #enter-button p {
@@ -64,10 +68,28 @@
     font-family: 'PT Serif', serif;
     font-size: 20px;
     height: 60px;
-    line-height: 60px;
-    border: 1px solid rgba(168, 79, 57, 0.5);
+    line-height: 56px; /* border is 2px  */
+    /*border: 1px solid rgba(168, 79, 57, 0.5);*/
+    border: 2px solid rgba(255, 255, 255, 1);
     box-sizing: border-box;
     cursor: pointer;
-    background-color: rgba(168, 79, 57, 0.5);
-    /*transform: translateY(-55px);*/
+    /*background-color: rgba(168, 79, 57, 0.5);*/
+}
+
+@media screen and (max-width: 600px) {
+    /*.welcome-area .button-row {*/
+        /*width: 200px;*/
+    /*}*/
+
+    .welcome-area h1 {
+        font-size: 72px;
+    }
+
+    .welcome-area h2 {
+        font-size: 18px;
+    }
+
+    .welcome-area #enter-button p {
+        font-size: 18px;
+    }
 }

@@ -62,17 +62,17 @@ app.controller('showcaseController', function ($scope, $http) {
         }
     }
 
-    $scope.showInfo = function (id) {
-        var elem = angular.element(document.getElementsByClassName(id));
-        elem.removeClass('hideInfo');
-        elem.addClass('showInfo');
-    };
-
-    $scope.hideInfo = function (id) {
-        var elem = angular.element(document.getElementsByClassName(id));
-        elem.removeClass('showInfo');
-        elem.addClass('hideInfo');
-    };
+    // $scope.showInfo = function (id) {
+    //     var elem = angular.element(document.getElementsByClassName(id));
+    //     elem.removeClass('hideInfo');
+    //     elem.addClass('showInfo');
+    // };
+    //
+    // $scope.hideInfo = function (id) {
+    //     var elem = angular.element(document.getElementsByClassName(id));
+    //     elem.removeClass('showInfo');
+    //     elem.addClass('hideInfo');
+    // };
 
     $scope.showBigImage = function (id) {
         showPage(PAGE.LARGE);
@@ -84,8 +84,8 @@ app.controller('showcaseController', function ($scope, $http) {
             $scope.bigPhoto = response.data;
             //
             $scope.isBigImageLoading = false;
-            $scope.isFirstPhoto = $scope.bigPhoto.prev == 'null';
-            $scope.isLastPhoto = $scope.bigPhoto.next == 'null';
+            $scope.isFirstPhoto = $scope.bigPhoto.prev == null;
+            $scope.isLastPhoto = $scope.bigPhoto.next == null;
         }, function error(response) {
         });
     };
@@ -108,7 +108,7 @@ app.controller('showcaseController', function ($scope, $http) {
 
     $scope.showPrev = function () {
         var prev = $scope.bigPhoto.prev;
-        if (prev != 'null') {
+        if (prev != null) {
             $scope.bigPhoto = null;
             $scope.showBigImage(prev);
         }
@@ -116,13 +116,14 @@ app.controller('showcaseController', function ($scope, $http) {
 
     $scope.showNext = function () {
         var next = $scope.bigPhoto.next;
-        if (next != 'null') {
+        if (next != null) {
             $scope.bigPhoto = null;
             $scope.showBigImage(next);
         }
     };
 
     $scope.showWelcome();
+    // $scope.showAbout();
 
 });
 

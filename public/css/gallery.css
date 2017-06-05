@@ -1,17 +1,11 @@
 /* Gallery */
 
-.gallery-area, .navigation-area, .footer-area {
-    --photo-margin: 50px;
-}
-
 .gallery-area {
     margin: auto;
-    width: 100%;
-    clear: left;
+    width: 1150px;
+    clear: both;
     text-align: center;
-    padding: 0 calc((100% - var(--content-width)) / 2);
     box-sizing: border-box;
-    min-height: calc(100% - 162px);
 }
 
 .gallery-area img.photo {
@@ -29,12 +23,12 @@
     left: 0;
     bottom: 0;
     right: 0;
-    margin: var(--photo-margin);
+    margin: 65px;
     border: none;
 }
 
 .gallery-area div.photo-outer {
-    width: 50%;
+    width: 50%; /* 2 photos per line */
     float: left;
     box-sizing: border-box;
     /* for fixed ratio */
@@ -64,43 +58,83 @@
     cursor: pointer;
 }
 
-/* TODO: improve the way we display label, make sure it's in the center */
-.gallery-area div.info {
-    color: white;
-    font-family: "Times New Roman";
-    width: 100%;
-    position: absolute;
-    bottom: calc(50% - 28px);
-    z-index: 101;
-}
+/*!* TODO: improve the way we display label, make sure it's in the center *!*/
+/*.gallery-area div.info {*/
+    /*color: white;*/
+    /*font-family: "Times New Roman";*/
+    /*width: 100%;*/
+    /*position: absolute;*/
+    /*bottom: calc(50% - 28px);*/
+    /*z-index: 101;*/
+/*}*/
 
-.gallery-area p.title {
-    width: 80%;
-    margin: auto;
-    padding-bottom: 3%;
-    font-size: 18px;
-    white-space: nowrap;
-    overflow: hidden;
-}
+/*.gallery-area p.title {*/
+    /*width: 80%;*/
+    /*margin: auto;*/
+    /*padding-bottom: 3%;*/
+    /*font-size: 18px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+/*}*/
 
-.gallery-area p.description {
-    font-size: 14px;
-    word-wrap: break-word;
-    width: 60%;
-    text-overflow: ellipsis;
-    text-align: center;
-    vertical-align: middle;
-    margin: auto;
-}
+/*.gallery-area p.description {*/
+    /*font-size: 14px;*/
+    /*word-wrap: break-word;*/
+    /*width: 60%;*/
+    /*text-overflow: ellipsis;*/
+    /*text-align: center;*/
+    /*vertical-align: middle;*/
+    /*margin: auto;*/
+/*}*/
 
 .gallery-area p:hover {
     cursor: default;
 }
 
-.gallery-area .showInfo {
-    display: block;
+/*.gallery-area .showInfo {*/
+    /*display: block;*/
+/*}*/
+
+/*.gallery-area .hideInfo {*/
+    /*display: none;*/
+/*}*/
+
+
+@media screen and (max-width: 1200px) {
+
+    .gallery-area {
+        width: 900px;
+    }
+    .gallery-area div.photo-inner { /* for fixed ratio */
+        margin: 50px;
+    }
+
 }
 
-.gallery-area .hideInfo {
-    display: none;
+@media screen and (max-width: 991px) {
+
+    .gallery-area div.photo-outer {
+        width: 100%; /* 1 photo per line */
+    }
+    .gallery-area {
+        width: 600px;
+    }
+    .gallery-area div.photo-inner { /* for fixed ratio */
+        margin: 70px;
+    }
+
+}
+
+@media screen and (max-width: 700px) {
+
+    /*.gallery-area div.photo-outer {*/
+        /*width: 100%; !* 1 photo per line *!*/
+    /*}*/
+    .gallery-area {
+        width: 500px;
+    }
+    /*.gallery-area div.photo-inner { !* for fixed ratio *!*/
+        /*margin: 70px;*/
+    /*}*/
+
 }

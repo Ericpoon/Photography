@@ -1,8 +1,7 @@
 /* Footer */
 .footer-area {
+    padding-top: 50px;
     clear: left;
-    /*width: calc(var(--content-width) - var(--photo-padding) * 2);*/
-    /*width: var(--content-width);*/
     width: 100%;
     margin: auto;
     bottom: 0;

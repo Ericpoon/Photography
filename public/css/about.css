@@ -1,18 +1,15 @@
 .about-area {
+
+    position: relative;
     padding: 0;
     margin: 0 auto;
     width: 100%;
-    min-height: calc(100% - 162px);
+    min-height: calc(100% - 232px);
 }
 
+
 .about-area .container-fluid {
-    /* make vertically center */
-    margin: 0;
-    width: 100%;
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding-top: 100px;
 }
 
 .about-area .col-left {
@@ -31,3 +28,4 @@
     width: 360px;
     transform: translateY(-4px);
 }
+
