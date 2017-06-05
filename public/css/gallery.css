@@ -47,8 +47,8 @@
 
 .gallery-area div.photo-inner:hover div.overlay {
     position: absolute;
-    background-color: rgb(0, 0, 0);
-    opacity: 0.8;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.25;
     z-index: 99;
     display: block;
     top: 0;
@@ -139,7 +139,7 @@
 
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
 
     .gallery-area {
         width: 400px;
