@@ -93,3 +93,10 @@
         font-size: 18px;
     }
 }
+
+@media screen and (max-height: 630px) {
+    .welcome-area .button-row {
+        margin: 100px auto 0 auto;
+    }
+}
+
